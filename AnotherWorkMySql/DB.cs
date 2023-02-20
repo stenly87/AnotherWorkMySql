@@ -68,6 +68,12 @@ namespace AnotherWorkMySql
             }
         }
 
+        /// <summary>
+        /// Добавление записи в таблицу из указанного DTO
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         public bool InsertRow<T>(T obj) where T : class
         {
             var typeInfo = obj.GetType();
@@ -83,6 +89,12 @@ namespace AnotherWorkMySql
             return ExecuteSql(sql, parameters.ToArray());
         }
 
+        /// <summary>
+        /// Обновление значений указанного DTO в бд
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         public bool Update<T>(T obj) where T : class
         {
             var typeInfo = obj.GetType();
@@ -102,6 +114,14 @@ namespace AnotherWorkMySql
             return ExecuteSql(sql, parameters.ToArray());
         }
 
+        /// <summary>
+        /// Поиск колонок с атрибутами и создание списков с именами колонок и значениями свойств
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="obj"></param>
+        /// <param name="props"></param>
+        /// <param name="columns"></param>
+        /// <param name="parameters"></param>
         private static void SearchDTOColumns<T>(T obj, System.Reflection.PropertyInfo[] props, List<string> columns, List<MySqlParameter> parameters) where T : class
         {
             foreach (var prop in props)
@@ -123,7 +143,15 @@ namespace AnotherWorkMySql
                 }
             }
         }
-
+        /// <summary>
+        /// заполнение коллекций значениями с помощью атрибутов
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="obj"></param>
+        /// <param name="columns"></param>
+        /// <param name="parameters"></param>
+        /// <param name="prop"></param>
+        /// <param name="primaryAttrib"></param>
         private static void FillListColumn<T>(T obj, List<string> columns, List<MySqlParameter> parameters, System.Reflection.PropertyInfo prop, object? primaryAttrib) where T : class
         {
             string title = ((DBColumnAttribute)primaryAttrib).Title;
@@ -131,6 +159,12 @@ namespace AnotherWorkMySql
             parameters.Add(new MySqlParameter(title, prop.GetValue(obj)));
         }
 
+        /// <summary>
+        /// удаление записи из бд, в качестве аргумента можно передать любую DTO
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         public bool RemoveRow<T>(T obj) where T : class
         {
             var typeInfo = obj.GetType();
@@ -147,6 +181,13 @@ namespace AnotherWorkMySql
             return ExecuteSql(sql, parameters);
         }
 
+        /// <summary>
+        /// получение инфы о свойстве, хранящем значение ключевого (первичного) столбца
+        /// </summary>
+        /// <param name="typeInfo"></param>
+        /// <param name="obj"></param>
+        /// <param name="ColumnIdName"></param>
+        /// <returns></returns>
         private object GetIDValue(Type typeInfo, object obj, out string ColumnIdName)
         {
             var props = typeInfo.GetProperties();

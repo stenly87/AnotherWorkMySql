@@ -9,7 +9,7 @@ namespace AnotherWorkMySql
     [DBTable("tbl_position")]
     public class Position
     {
-        [DBColumn("id")]
+        [DBPrimaryColumn("id")]
         public int Id { get; set; }
 
         [DBColumn("title")]

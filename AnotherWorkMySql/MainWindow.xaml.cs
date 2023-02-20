@@ -27,9 +27,9 @@ namespace AnotherWorkMySql
                  MessageBox.Show("F");*/
             /* if (DB.GetInstance().RemoveRow(new Table { Id = 11 }))
                  MessageBox.Show("F");*/
-
+            /*
             if (DB.GetInstance().Update(new Table {Id = 12, Count = 51, Number = 110, Title = "sadasdasdadasdsadasd" })) 
-                MessageBox.Show("F");
+                MessageBox.Show("F");*/
         }
     }
 }

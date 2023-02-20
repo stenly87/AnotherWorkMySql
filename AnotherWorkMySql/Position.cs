@@ -22,7 +22,7 @@ namespace AnotherWorkMySql
     [DBTable("tbl_table")]
     public class Table
     {
-        [DBColumn("id")]
+        [DBPrimaryColumn("id")]
         public int Id { get; set; }
 
         [DBColumn("title")]
